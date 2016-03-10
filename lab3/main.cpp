@@ -9,8 +9,8 @@
 #include <math.h>
 using namespace std;
 
-#define kWIN_WIDTH 1000.0f
-#define kWIN_HEIGHT 1000.0f
+#define kWIN_WIDTH 768.0f
+#define kWIN_HEIGHT 768.0f
 #define PI 3.1416
 
 
@@ -140,16 +140,19 @@ void functionsDisplay(){
 
 
 	// spiral
-	glViewport(kWIN_WIDTH/2, kWIN_HEIGHT/2, kWIN_WIDTH/2, kWIN_HEIGHT/2);
+	glViewport(kWIN_WIDTH/3, kWIN_HEIGHT/2, kWIN_WIDTH/2, kWIN_HEIGHT/2);
 
-	scaleK = 1.0;
-	len = 200;
+	len = 100;
+	float step = .2;
+	float size = len * step;
+	setWindow(-size, size, -size, size);
+
 	glColor3f(0.0f, 1.0f, 0.0f);
 	glBegin(GL_LINE_STRIP);
 	for (int i = 0; i < len; i++){
-		float t = (10.0 / len) * i;
-		float x = scaleK * exp(2*t) * cos(t);
-		float y = scaleK * exp(2*t) * sin(t);
+		float t = i*step;
+		float x = cos(t) * t;
+		float y = sin(t) * t;
 		glVertex3f(x, y, .0);
 	}
 	glEnd();
