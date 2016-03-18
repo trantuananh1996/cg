@@ -9,16 +9,26 @@
 #define kDELTA_T .1
 
 
+const int len = 16;
+float house[] = {.0, .5, .5, 1.,
+								 .7, .8, .7, .9,
+								 .8, .9, .8, .9,
+								 .8, .7, 1., .5,
+								 .8, .5, .8, .0,
+								 .6, .0, .6, .2,
+								 .4, .2, .4, .0,
+								 .2, .0, .2, .5
+								};
 
-/*
- * Press 'a' and 'd' to tween
- *
- *
- * */
-
-const int len = 3;
-float house[] = {.1, .1, .1, .5, .5, .1};
-float car[] =   {.2, .2, .3, .4, .7, .8};
+float car[] =   {.0, .3, .1, .3,
+								 .2, .6, .6, .6,
+								 .9, .3, 1., .3,
+								 1., .0, .8, .0,
+								 .7, .1, .6, .1,
+								 .6, .0, .4, .0,
+								 .3, .1, .2, .1,
+								 .1, .0, .0, .0
+								};
 
 
 float t = 0.0;
@@ -73,7 +83,7 @@ int main( int argc, char *argv[] )  {
 	glutInitDisplayMode( GLUT_DOUBLE | GLUT_RGB );
 	glutInitWindowSize( 640, 480 );
 	glutInitWindowPosition( 100, 150 );
-	glutCreateWindow( "lab4" );
+	glutCreateWindow( "lab4 : Press 'a' or 'd' to tween" );
 
 	simpleInit( );
 	glutDisplayFunc( myDisplay );
