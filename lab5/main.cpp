@@ -29,9 +29,9 @@ TransformMode currentMode = TM_TRANS;
 
 
 #define kDELTA_T .05
-float gTx = .0, gTy = .0;
+float gTx = .5, gTy = .5;
 
-#define kDELTA_R 1.5
+#define kDELTA_R 2.5
 float gRotate = .0;
 
 #define kDELTA_S .1
@@ -65,7 +65,7 @@ void displayText( float x, float y,  const char *string,
 void  drawHouse(){
 	glBegin(GL_LINE_LOOP);
 	for (int i = 0; i < len; i++){
-		glVertex2f(house[i<<1], house[(i<<1) + 1]);
+		glVertex2f(house[i<<1] - .5, house[(i<<1) + 1] - .5);
 	}
 	glEnd();
 }
@@ -125,8 +125,8 @@ void keyboard (unsigned char key, int x, int y){
 
 	if (currentMode == TM_ROTATE){
 		switch(key){
-		case 'a' : gRotate -= kDELTA_R; break;
-		case 'd' : gRotate += kDELTA_R; break;
+		case 'a' : gRotate += kDELTA_R; break;
+		case 'd' : gRotate -= kDELTA_R; break;
 		}
 	}
 
