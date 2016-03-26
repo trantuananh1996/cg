@@ -15,7 +15,7 @@ using namespace std;
 
 
 void simpleInit(){
-    glClearColor( 0.0, 0.0, 0.0, 0.0 );
+		glClearColor( 1.0, 1.0, 1.0, 1.0 );
     glColor3f( 1.0, 1.0, 1.0 );
     glPointSize( 3.0 );
     glMatrixMode( GL_PROJECTION );
@@ -37,11 +37,19 @@ float kochY[] = {0.5f, .50000f, .7886f, .50000f, 0.5f };
 int kochLen = 5;
 
 void drawFlake(){
+		glColor3f(0.0, 0.0,.0);
     glBegin(GL_LINE_STRIP);
     for (int i = 0; i < kochLen; ++i){
         glVertex3f(kochX[i] - .5f, kochY[i] -.5f, 0.0f);
     }
     glEnd();
+
+		glColor3f(1.0, 1.0,1.0);
+		glBegin(GL_LINE_STRIP);
+			glVertex3f(kochX[1] - .5f, kochY[1] - .5f, 0.0f);
+			glVertex3f(kochX[3] - .5f, kochY[3] - .5f, 0.0f);
+		glEnd();
+		glColor3f(0.0, 0.0,.0);
 }
 
 void displayAtGen(int n ){
@@ -83,7 +91,7 @@ void displayAtGen(int n ){
 void flakeDisplay(void){
     glClear( GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT );
 
-    glColor3f(1.0f, 1.0f, 1.0f);
+		glColor3f(0.0f, 0.0f, 0.0f);
     glViewport(0, 0, kWIN_WIDTH, kWIN_HEIGHT);
     setWindow(-.5, .5, -.5, .5);
 
@@ -108,10 +116,10 @@ void functionsDisplay(){
 
 	//cardidoid
 	setWindow(-2.0, 2.0, -2.0, 2.0);
-	glColor3f(1.0, 1.0, 1.0);
+
 	int scaleK = 1;
 	int len = 200;
-	glColor3f(1.0f, 1.0f, 1.0f);
+	glColor3f(0.0f, 0.0f, 0.0f);
 
 	glBegin(GL_LINE_STRIP);
 	for (int i = 0; i <= len; i++){
