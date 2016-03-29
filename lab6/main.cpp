@@ -24,6 +24,10 @@ void myInit( void )  {
     body[2] = new HandPart(body[1]);
     body[3] = new ArmPart(body[0], .9);
     body[4] = new HandPart(body[3], .9);
+    body[5] = new UpLeg(body[0]);
+    body[6] = new LowLeg(body[5]);
+    body[7] = new UpLeg(body[0], .9);
+    body[8] = new LowLeg(body[7], .9);
 
 }
 
@@ -35,13 +39,13 @@ void drawPart(Part* part){
 }
 
 
-void myDisplay( void )  {
+void stickmanDisplay( void )  {
     glClear( GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT );
     glColor3f(1.0f, 1.0f, 1.0f);
 
 
-    for (int i = 0; i < 5; i++){
-        body[i]->tick(5e-4);
+    for (int i = 0; i < 9; i++){
+        body[i]->tick(6e-4);
         drawPart(body[i]);
     }
 
@@ -61,7 +65,7 @@ int main( int argc, char *argv[] )  {
 
 
     myInit( );
-    glutDisplayFunc( myDisplay );
+    glutDisplayFunc( stickmanDisplay );
 
     glutMainLoop( );
 }

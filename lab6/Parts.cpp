@@ -20,7 +20,7 @@ BodyPart::BodyPart(){
 
 void BodyPart::tick(float dt){
     _time += dt;
-    float ratio = _time / _roundTime;
+    float ratio = _time*.9 / _roundTime;
     head = Vec2(.2 + .6*ratio, .6);
     _time = _time > 4.0f ? 0 : _time;
 }
@@ -29,7 +29,7 @@ ArmPart::ArmPart(Part *pPar, float delay){
     _parent = pPar;
     head = pPar->head;
     angle = 5.0*PI/4.0;
-    len = .1;
+    len = .13;
     _time = delay;
     _digit = 1;
     _roundTime = 1.0f;
@@ -65,3 +65,42 @@ void HandPart::tick(float dt){
 
     checkEnd();
 }
+
+UpLeg::UpLeg(Part *parent, float delay){
+    _parent = parent;
+    _time = delay;
+    head = parent->getTail();
+    len = .1;
+    _digit = 1;
+    _roundTime = 1.0f;
+}
+
+void UpLeg::tick(float dt){
+    _time += dt * _digit;
+    float ratio = _time/_roundTime;
+
+    head = _parent->getTail();
+    angle = _parent->angle - .05*PI + PI*.15f * ratio;
+
+    checkEnd();
+}
+
+LowLeg::LowLeg(Part *parent, float delay){
+    _parent = parent;
+    _time = delay;
+    head = parent->getTail();
+    len = .1;
+    _digit = 1;
+    _roundTime = 1.0f;
+}
+
+void LowLeg::tick(float dt){
+    _time += dt * _digit;
+    float ratio = _time/_roundTime;
+
+    head = _parent->getTail();
+    angle = _parent->angle + .02*PI - PI*.17f * ratio;
+
+    checkEnd();
+}
+

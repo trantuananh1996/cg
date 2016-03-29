@@ -52,5 +52,11 @@ public:
 class UpLeg : public Part{
 public:
     UpLeg(Part * parent, float delay = 0);
+    virtual void tick(float);
+};
 
+class LowLeg : public Part{
+public:
+    LowLeg(Part * parent, float delay = 0);
+    virtual void tick(float);
 };
