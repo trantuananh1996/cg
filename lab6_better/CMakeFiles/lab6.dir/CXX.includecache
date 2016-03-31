@@ -1,0 +1,30 @@
+#IncludeRegexLine: ^[ 	]*#[ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
+
+#IncludeRegexScan: ^.*$
+
+#IncludeRegexComplain: ^$
+
+#IncludeRegexTransform: 
+
+/home/giang/projects/cg/lab6_better/Stick.cpp
+GL/gl.h
+-
+GL/glu.h
+-
+GL/glut.h
+-
+Stick.h
+/home/giang/projects/cg/lab6_better/Stick.h
+
+/home/giang/projects/cg/lab6_better/Stick.h
+cmath
+-
+
+/home/giang/projects/cg/lab6_better/main.cpp
+GL/glut.h
+-
+stdlib.h
+-
+math.h
+-
+

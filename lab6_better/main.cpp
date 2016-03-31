@@ -1,68 +1,116 @@
-#include <GL/gl.h>
-#include <GL/glu.h>
 #include <GL/glut.h>
-#include "Stick.h"
+#include <stdlib.h>
+#include <math.h>
 
 
-Stick *body;
+float ex = 5;
+float ey = 5;
+float ez = 5;
 
-const int len = 9;
-Stick* human[len];
 
-void stickmanInit( void )  {    
-    glClearColor( 0.0, 0.0, 0.0, 0.0 );        
-    glMatrixMode( GL_PROJECTION );
-    glLoadIdentity( );
-    glOrtho(0.0, 1.0, 0.0, 1.0, -1.0, 1.0);
+float cx, cy, cz;// center of the objects
 
-    human[0] = new Stick(SR_BODY);
-    human[1] = new Stick(SR_HAND_UPPER, human[0]);
-    human[2] = new Stick(SR_HAND_UPPER, human[0], .9);
-    human[3] = new Stick(SR_HAND_LOWER, human[1]);
-    human[4] = new Stick(SR_HAND_LOWER, human[2], .9);
-    human[5] = new Stick(SR_FOOT_UPPER, human[0]);
-    human[6] = new Stick(SR_FOOT_UPPER, human[0], .9);
-    human[7] = new Stick(SR_FOOT_LOWER, human[5]);
-    human[8] = new Stick(SR_FOOT_LOWER, human[6], .9);
+
+void init(void)
+{
+    glClearColor (0.0, 0.0, 0.0, 0.0);
+    glEnable(GL_DEPTH_TEST);
+    glShadeModel (GL_FLAT);
+    cx = cy = cz = 2;
 }
 
-void drawStick(Stick* stick){
+void dline(float x, float y, float z, float r, float g, float b){
+    glColor3f(r, g, b);
+    glLineWidth(2);
     glBegin(GL_LINES);
-    glVertex3f(stick->head.x, stick->head.y, .0);
-    glVertex3f(stick->tail().x, stick->tail().y , .0);
+    glVertex3f(0, 0, 0);
+    glVertex3f(x, y, z);
     glEnd();
+    glLineWidth(1);
 }
 
-void stickmanDisplay( void )  {
-    glClear( GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT );
-    glColor3f(1.0f, 1.0f, 1.0f);
+void display(void)
+{
+    glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+    glPushMatrix();
 
-    for (int i = 0; i < len; ++i){
-        human[i]->tick(5e-4);
-        drawStick(human[i]);
+    dline(10,0, 0, 1, 0, 0);
+    dline(0, 10,0, 0, 1, 0);
+    dline(0, 0, 10, 0, 0, 1);
+
+    glTranslatef (2, 2, 2);
+
+    glColor3f (1.0, 0, 0);
+    glutWireSphere(1.0, 20, 16);
+
+    glColor3f (0, 0, 1.0);
+    glutWireCube(3.0f);
+
+    glPopMatrix();
+    glutSwapBuffers();
+}
+void reshape (int w, int h)
+{
+    glViewport (0, 0, (GLsizei) w, (GLsizei) h);
+
+    glMatrixMode (GL_PROJECTION);
+    glLoadIdentity ();
+    gluPerspective(100.0, (GLfloat) w/(GLfloat) h, 1.0, 20.0);
+
+    glMatrixMode(GL_MODELVIEW);
+
+    glLoadIdentity();
+    glPopMatrix();
+    glPushMatrix();
+    gluLookAt (ex, ey, ez,
+               cx, cy, cz,
+               0, 1, 0);
+}
+
+void keyboard (unsigned char key, int x, int y)
+{
+
+    float speed = 5e-1;
+    switch (key) {
+    case 'w':
+        ey += speed;
+        cy += speed;
+        break;
+    case 's':
+        ey -= speed;
+        cy -= speed;
+        break;
+    case 'a':
+        ex -= speed;
+        cx -= speed;
+        break;
+    case 'd':
+        ex += speed;
+        cx += speed;
+        break;
     }
 
-    glFlush();
-    glutSwapBuffers();
+
+
+
+    glPopMatrix();
+    glPushMatrix();
+
+
+    gluLookAt (ex, ey, ez, cx, cy, cz, 0.0, 1.0, 0.0);
     glutPostRedisplay();
 }
-
-void reshape(int w, int h){
-    glViewport(0, 0, w, h);
-    glPopMatrix();
-    //glTranslatef(.5*w, .5*h, 0);
-}
-
-
-
-int main( int argc, char *argv[] )  {  
-    glutInit( &argc, argv );
-    glutInitDisplayMode( GLUT_DOUBLE | GLUT_RGB );
-    glutInitWindowSize( 640, 480 );
-    glutInitWindowPosition( 100, 150 );
-    glutCreateWindow( "lab6" );
-    stickmanInit( );
-    glutDisplayFunc( stickmanDisplay );
-
-    glutMainLoop( );
+int main(int argc, char** argv)
+{
+    glutInit(&argc, argv);
+    glutInitDisplayMode (GLUT_DOUBLE | GLUT_RGB);
+    glutInitWindowSize (500, 500);
+    glutInitWindowPosition (100, 100);
+    glutCreateWindow (argv[0]);
+    init ();
+    glutDisplayFunc(display);
+    glutReshapeFunc(reshape);
+    glutKeyboardFunc(keyboard);
+    glutMainLoop();
+    return 0;
 }

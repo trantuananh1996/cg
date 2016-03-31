@@ -1,0 +1,1 @@
+/home/giang/projects/cg/lab6_better/CMakeFiles/lab6.dir
