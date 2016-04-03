@@ -1,1 +1,0 @@
-/usr/bin/c++      CMakeFiles/lab6.dir/main.cpp.o CMakeFiles/lab6.dir/Stick.cpp.o  -o lab6 -rdynamic -lGLU -lGL -lglut -lXmu -lXi 
